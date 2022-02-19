@@ -2,9 +2,10 @@ import React from 'react';
 import { Link} from 'react-router-dom';
 import { Button, Container } from './styles'
 function Nav() {
-  
+  const navigation = useNavigate();
   function sair(){
     window.localStorage.clear();
+    navigation('/')
   }
   return (
     <div>
