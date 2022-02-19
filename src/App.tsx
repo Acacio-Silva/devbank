@@ -1,25 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useEffect, useState } from 'react';
+import ReactModal from 'react-modal';
+import { BrowserRouter } from 'react-router-dom';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Nav from './components/Nav/nav';
+import Login from './pages/Login';
+import Rotas from './Rotas';
+import { GlobalStyle } from './styles/global';
+import AuthProvider, { AuthContext } from './contexts/Auth/auth';
+import { NewAccountModal } from './components/NewAccountModal/NewAccountModal';
+import ModalProvider, { ModalContext } from './contexts/modalContext';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+ReactModal.setAppElement('#root');
 
 function App() {
+  
+
+
+  const {state} = useContext(AuthContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+    <BrowserRouter>
+      <GlobalStyle/>
+      <Header/>
+    <ModalProvider>
+    { state.cpf ? <> <Nav/><Rotas/></>  :  <Login/>  }     
+      
+    <NewAccountModal />
+    </ModalProvider>  
+      <Footer/>
+
+    </BrowserRouter>
+    </AuthProvider>
   );
 }
 
