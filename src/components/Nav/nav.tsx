@@ -5,7 +5,7 @@ function Nav() {
   const navigation = useNavigate();
   function sair(){
     window.localStorage.clear();
-    navigation('/')
+    navigation('/');
   }
   return (
     <div>
